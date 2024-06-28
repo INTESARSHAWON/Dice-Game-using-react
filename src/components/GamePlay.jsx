@@ -5,6 +5,7 @@ import RoleDice from "./RoleDice";
 import { useState } from "react";
 import { Button } from "../styled/Button";
 import Rules from "./Rules";
+import CounterContainer from "./Counter";
 
 const GamePlay = () => {
   const [score, setScore] = useState(0);
@@ -12,7 +13,8 @@ const GamePlay = () => {
   const [currentDice, setCurrentDice] = useState(1);
   const [error, setError] = useState("");
   const [showRules, setShowRules] = useState(false);
-
+  const [winCounter, setWinCounter] =useState(0);
+  const [loseCounter, setLoseCounter] =useState(0);
   
   const generateRandomNumber = (min, max) => {
     // console.log(Math.floor(Math.random() * (max-min) + min));
@@ -31,9 +33,11 @@ const GamePlay = () => {
 
     if(selectedNumber == randomNumber){
       setScore((prev)=> prev + randomNumber);
+      setWinCounter(winCounter + 1);
     }
     else{
       setScore((prev)=> prev - 2);
+      setLoseCounter(loseCounter + 1);
     }
 
     setSelectedNumber(undefined);
@@ -42,6 +46,8 @@ const GamePlay = () => {
   const resetScore= () =>{
     setScore(0);
     setError("");
+    setWinCounter(0);
+    setLoseCounter(0);
   }
 
   return (
@@ -63,10 +69,12 @@ const GamePlay = () => {
           <Button onClick={()=> setShowRules((prev=> !prev))}>
             {showRules ? "Hide" : "Show"} Rules
           </Button>
-        </div>
+        </div>  
 
         {showRules && <Rules/>}
-
+        
+        <CounterContainer winCounter={winCounter} loseCounter={loseCounter}/>
+        
     </MainContainer>    
   );
 }
