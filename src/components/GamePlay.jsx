@@ -41,6 +41,7 @@ const GamePlay = () => {
 
   const resetScore= () =>{
     setScore(0);
+    setError("");
   }
 
   return (
