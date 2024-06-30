@@ -38,6 +38,15 @@ const GamePlay = () => {
     else{
       setScore((prev)=> prev - 2);
       setLoseCounter(loseCounter + 1);
+    }  
+
+    if (winCounter + loseCounter == 9){
+      setScore(0);
+      setWinCounter(0);
+      setLoseCounter(0);
+      {winCounter > loseCounter ? setError("Game is Over, YOU WIN, Start Again") 
+        : setError("Game is Over, YOU HAVE LOST, Start Again")
+      }
     }
 
     setSelectedNumber(undefined);
